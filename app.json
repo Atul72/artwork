@@ -16,6 +16,11 @@
     "ios": {
       "bundleIdentifier": "com.artexplorer.app",
       "supportsTablet": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d5fb499e-3307-43b2-ac75-63b9c5a02b8f"
+      }
     }
   }
 }

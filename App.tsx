@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { SafeAreaView, StatusBar, View, Pressable, Text } from 'react-native';
+import { StatusBar, View, Pressable, Text } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppProvider, useApp } from './src/context/AppContext';
 import { styles } from './src/styles';
 import { C, ONBOARDING } from './src/constants';
@@ -12,16 +13,22 @@ import {
 
 function MainNavigator() {
   const { ready, onboarded, screen, isRoot, switchTab, favorites, onboardingStep, completeOnboarding, setOnboardingStep } = useApp();
+  const insets = useSafeAreaInsets();
 
   if (!ready) {
-    return <SafeAreaView style={styles.app}><StatusBar barStyle="dark-content" /><LoadingBlock text="Getting your art corner ready..." /></SafeAreaView>;
+    return (
+      <View style={[styles.app, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={C.bg} />
+        <LoadingBlock text="Getting your art corner ready..." />
+      </View>
+    );
   }
 
   if (!onboarded) {
     const slide = ONBOARDING[onboardingStep];
     return (
-      <SafeAreaView style={[styles.app, styles.onboardingApp]}>
-        <StatusBar barStyle="dark-content" />
+      <View style={[styles.app, styles.onboardingApp, { paddingTop: insets.top + 8, paddingBottom: Math.max(insets.bottom, 16) }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={C.bg} />
         <View style={styles.onboardTop}><Text style={styles.brandSmall}>ART EXPLORER 🎨</Text><Text style={styles.skipText} onPress={completeOnboarding}>Skip</Text></View>
         <View style={[styles.onboardIllustration, { backgroundColor: slide.bg }]}>
           <View style={styles.confettiOne} /><View style={styles.confettiTwo} /><View style={styles.confettiThree} />
@@ -37,7 +44,7 @@ function MainNavigator() {
         <View style={styles.onboardActions}>
           <Button title={onboardingStep === ONBOARDING.length - 1 ? "Let's explore! ✨" : 'Next →'} onPress={() => onboardingStep === ONBOARDING.length - 1 ? completeOnboarding() : setOnboardingStep((old: number) => old + 1)} />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -57,23 +64,41 @@ function MainNavigator() {
   }
 
   return (
-    <SafeAreaView style={styles.app}>
+    <View style={[styles.app, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor={C.bg} />
-      <View style={styles.main}>{body}</View>
-      {isRoot ? <View style={styles.tabBar}>
-        {[{ name: 'home', label: 'Home', icon: '⌂' }, { name: 'search', label: 'Search', icon: '⌕' }, { name: 'favorites', label: 'Favorites', icon: '♡' }, { name: 'more', label: 'More', icon: '•••' }].map((tab) => {
-          const active = screen === tab.name;
-          return <Pressable key={tab.name} onPress={() => switchTab(tab.name)} style={styles.tabItem} accessibilityRole="button" accessibilityLabel={tab.label}><Text style={[styles.tabIcon, active && styles.tabIconActive]}>{tab.name === 'favorites' && active && favorites.length ? '♥' : tab.icon}</Text><Text style={[styles.tabLabel, active && styles.tabLabelActive]}>{tab.label}</Text><View style={[styles.tabDot, active && styles.tabDotActive]} /></Pressable>;
-        })}
-      </View> : null}
-    </SafeAreaView>
+      <View style={[styles.main, !isRoot && { paddingBottom: insets.bottom }]}>{body}</View>
+      {isRoot ? (
+        <View style={[styles.tabBar, { paddingBottom: insets.bottom, minHeight: 64 + insets.bottom }]}>
+          {[{ name: 'home', label: 'Home', icon: '⌂' }, { name: 'search', label: 'Search', icon: '⌕' }, { name: 'favorites', label: 'Favorites', icon: '♡' }, { name: 'more', label: 'More', icon: '•••' }].map((tab) => {
+            const active = screen === tab.name;
+            return (
+              <Pressable
+                key={tab.name}
+                onPress={() => switchTab(tab.name)}
+                style={styles.tabItem}
+                accessibilityRole="button"
+                accessibilityLabel={tab.label}
+              >
+                <Text style={[styles.tabIcon, active && styles.tabIconActive]}>
+                  {tab.name === 'favorites' && active && favorites.length ? '♥' : tab.icon}
+                </Text>
+                <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>{tab.label}</Text>
+                <View style={[styles.tabDot, active && styles.tabDotActive]} />
+              </Pressable>
+            );
+          })}
+        </View>
+      ) : null}
+    </View>
   );
 }
 
 export default function App() {
   return (
-    <AppProvider>
-      <MainNavigator />
-    </AppProvider>
+    <SafeAreaProvider>
+      <AppProvider>
+        <MainNavigator />
+      </AppProvider>
+    </SafeAreaProvider>
   );
 }
