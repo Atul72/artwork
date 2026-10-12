@@ -1,19 +1,20 @@
 {
   "expo": {
     "name": "Art Explorer",
-    "slug": "art-explorer-kids",
+    "slug": "art-explorer",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "backgroundColor": "#FFF9EF",
     "android": {
-      "package": "com.example.artexplorerkids",
+      "package": "com.artexplorer.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#FFF9EF"
       }
     },
     "ios": {
-      "bundleIdentifier": "com.example.artexplorerkids",
+      "bundleIdentifier": "com.artexplorer.app",
       "supportsTablet": true
     }
   }

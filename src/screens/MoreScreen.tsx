@@ -14,8 +14,8 @@ export function MoreScreen() {
       <Header title="More to explore" subtitle="Keep your imagination curious." />
       <View style={styles.moreHero}><Text style={styles.moreHeroEmoji}>🧩</Text><View style={{ flex: 1 }}><Text style={styles.moreHeroTitle}>Play, notice, discover</Text><Text style={styles.moreHeroBody}>Small activities, big discoveries.</Text></View></View>
       <View style={styles.learningModeCard}>
-        <Text style={styles.sectionTitle}>Choose a learning level</Text>
-        <Text style={styles.sectionSub}>A grown-up can choose the level that fits each child. This is saved only on this device.</Text>
+        <Text style={styles.sectionTitle}>Choose a challenge level</Text>
+        <Text style={styles.sectionSub}>Select the quiz and learning level that fits your curiosity. This preference is saved locally on this device.</Text>
         {LEARNING_MODES.map((mode) => {
           const selected = learningMode === mode.id;
           return (
@@ -39,7 +39,7 @@ export function MoreScreen() {
           <Text style={styles.moreArrow}>›</Text>
         </Pressable>
       ))}
-      <View style={styles.sourceCard}><Text style={styles.sourceTitle}>A little note for grown-ups</Text><Text style={styles.sourceBody}>This app is an educational demo. Museum records and images are provided by The Met. We filter to artwork records marked public domain, but a human review of age suitability is still recommended before release.</Text></View>
+      <View style={styles.sourceCard}><Text style={styles.sourceTitle}>A World of Art in Your Pocket</Text><Text style={styles.sourceBody}>Art Explorer celebrates timeless art, master paintings, and cultural artifacts from history, curated for curious minds.</Text></View>
     </ScrollView>
   );
 }

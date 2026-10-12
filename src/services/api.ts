@@ -43,7 +43,7 @@ export async function fetchArtworkPage(term: string, offset = 0) {
   try {
     const url = `${API_SEARCH}?q=${encodeURIComponent(query)}&hasImages=true&isPublicDomain=true&limit=${PAGE_SIZE}&offset=${offset}`;
     const searchResponse = await fetch(url);
-    if (!searchResponse.ok) throw new Error(`Museum search failed (HTTP ${searchResponse.status}).`);
+    if (!searchResponse.ok) throw new Error('Unable to load artwork. Please check your connection and try again.');
     const searchData = await searchResponse.json();
     const ids: number[] = Array.isArray(searchData.objectIDs) ? searchData.objectIDs : [];
 
@@ -67,5 +67,38 @@ export async function fetchArtworkPage(term: string, offset = 0) {
   } catch (error) {
     if (cached && Array.isArray(cached.items)) return { ...cached, fromCache: true, stale: true };
     throw error;
+  }
+}
+
+export async function fetchLiveSearchSuggestions(term: string, limit = 4): Promise<Artwork[]> {
+  const query = term.trim();
+  if (query.length < 2) return [];
+
+  try {
+    const url = `${API_SEARCH}?q=${encodeURIComponent(query)}&hasImages=true&isPublicDomain=true&limit=${limit}&offset=0`;
+    const searchResponse = await fetch(url);
+    if (!searchResponse.ok) return [];
+    const searchData = await searchResponse.json();
+    const ids: number[] = Array.isArray(searchData.objectIDs) ? searchData.objectIDs.slice(0, limit) : [];
+    if (ids.length === 0) return [];
+
+    const results = await Promise.allSettled(
+      ids.map(async (id) => {
+        const res = await fetch(`${API_OBJECT}/${id}`);
+        if (!res.ok) return null;
+        return res.json();
+      })
+    );
+
+    const artworks: Artwork[] = [];
+    results.forEach((r) => {
+      if (r.status === 'fulfilled' && r.value) {
+        artworks.push(r.value);
+      }
+    });
+
+    return artworks.filter((item) => item.title && (item.primaryImageSmall || item.primaryImage));
+  } catch {
+    return [];
   }
 }

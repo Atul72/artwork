@@ -44,10 +44,10 @@ export const ONBOARDING: OnboardingSlide[] = [
 ];
 
 export const LEARNING_MODES: LearningMode[] = [
-  { id: 'little', label: 'Little Explorer', ages: '2–5 years', emoji: '🐣', description: 'Short, simple questions with familiar ideas.' },
-  { id: 'curious', label: 'Curious Creator', ages: '6–8 years', emoji: '🎨', description: 'Learn art words, colors, materials, and ways to look closely.' },
-  { id: 'detective', label: 'Art Detective', ages: '9–12 years', emoji: '🔎', description: 'Explore art techniques, history, and visual clues.' },
-  { id: 'family', label: 'Family Mix', ages: 'Mixed ages', emoji: '👨‍👩‍👧‍👦', description: 'A mix of easy, medium, and challenging questions.' },
+  { id: 'little', label: 'Beginner Explorer', ages: 'Easy', emoji: '🐣', description: 'Fun, accessible questions introducing art fundamentals.' },
+  { id: 'curious', label: 'Curious Creator', ages: 'Intermediate', emoji: '🎨', description: 'Explore art terminology, colors, materials, and mediums.' },
+  { id: 'detective', label: 'Art Detective', ages: 'Advanced', emoji: '🔎', description: 'Dive into art techniques, history, and visual composition clues.' },
+  { id: 'family', label: 'All Levels Mix', ages: 'Mixed', emoji: '✨', description: 'A lively mix of easy, intermediate, and advanced questions.' },
 ];
 
 export const QUIZZES: Record<string, QuizQuestion[]> = {
@@ -67,7 +67,7 @@ export const QUIZZES: Record<string, QuizQuestion[]> = {
   ],
   detective: [
     { q: 'What is a still life artwork?', options: ['A picture of arranged objects', 'A moving cartoon only', 'A weather map', 'A portrait of a crowd only'], answer: 0, why: 'A still life often shows arranged objects, such as flowers, fruit, or everyday items.' },
-    { q: 'What does “composition” mean in art?', options: ['How parts are arranged in an artwork', 'The price of paint', 'The artist’s birthday', 'The name of a museum'], answer: 0, why: 'Composition is the arrangement of shapes, colors, objects, and other visual elements.' },
+    { q: 'What does “composition” mean in art?', options: ['How parts are arranged in an artwork', 'The price of paint', 'The artist’s birthday', 'The title of a book'], answer: 0, why: 'Composition is the arrangement of shapes, colors, objects, and other visual elements.' },
     { q: 'Which material is commonly used for a bronze sculpture?', options: ['Metal alloy', 'Cotton cloth only', 'Watercolor paper', 'Chalk dust only'], answer: 0, why: 'Bronze is a metal alloy often used for durable sculptures.' },
     { q: 'What is perspective used to help show in a drawing?', options: ['Depth and distance', 'The sound of colors', 'A scent', 'The age of the paper'], answer: 0, why: 'Perspective techniques help create the impression of space and distance on a flat surface.' },
     { q: 'When comparing two artworks, what is the strongest first step?', options: ['Observe details and compare visual choices', 'Assume they mean the same thing', 'Judge only by size', 'Ignore the materials'], answer: 0, why: 'Careful observation of color, material, subject, and composition helps build an evidence-based interpretation.' },
@@ -86,6 +86,6 @@ export const FUN_FACTS: FunFact[] = [
   { title: 'Colors can tell stories', text: 'Artists use bright, soft, warm, and cool colors to help a picture feel different ways.', emoji: '🌈' },
   { title: 'Look for tiny details', text: 'A painting may hide little details in the background. Try looking at the corners too!', emoji: '🔎' },
   { title: 'Art can be made from many things', text: 'Artists can work with paint, clay, fabric, metal, wood, paper, and many other materials.', emoji: '🧵' },
-  { title: 'Museums keep stories safe', text: 'Museums care for artworks and share stories about the people and cultures connected to them.', emoji: '🏛️' },
+  { title: 'Preserving art history', text: 'Galleries and archives preserve artworks and share stories about cultures from around the world.', emoji: '🏛️' },
   { title: 'There is no one way to create', text: 'Every artist has their own ideas. Your way of making art can be special, too.', emoji: '💡' },
 ];

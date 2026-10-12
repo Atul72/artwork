@@ -25,7 +25,21 @@ export function FavoritesScreen() {
   return (
     <ScrollView contentContainerStyle={styles.page}>
       <Header title="My favorites 💜" subtitle="Your little gallery of keepers." />
-      {favorites.length ? <><Text style={styles.sectionSub}>{favorites.length} saved {favorites.length === 1 ? 'artwork' : 'artworks'}</Text>{renderGrid(favorites)}</> : <View style={styles.emptyState}><Text style={styles.emptyEmoji}>💜</Text><Text style={styles.emptyTitle}>Your gallery is waiting</Text><Text style={styles.emptyBody}>Tap the heart on any artwork to keep it here.</Text><Button title="Discover artwork" onPress={() => switchTab('search')} style={{ marginTop: 16 }} /></View>}
+      {favorites.length ? (
+        <>
+          <Text style={[styles.sectionSub, { marginBottom: 14 }]}>
+            {favorites.length} saved {favorites.length === 1 ? 'artwork' : 'artworks'}
+          </Text>
+          {renderGrid(favorites)}
+        </>
+      ) : (
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyEmoji}>💜</Text>
+          <Text style={styles.emptyTitle}>Your gallery is waiting</Text>
+          <Text style={styles.emptyBody}>Tap the heart on any artwork to keep it here.</Text>
+          <Button title="Discover artwork" onPress={() => switchTab('search')} style={{ marginTop: 16 }} />
+        </View>
+      )}
     </ScrollView>
   );
 }

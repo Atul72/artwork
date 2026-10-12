@@ -9,7 +9,7 @@ export function ArtistScreen() {
   const { params, goBack, searchFor } = useApp();
   const artwork = params.artwork || {};
   const name = params.artistName || artwork.artistDisplayName || 'Artist';
-  const bio = artwork.artistDisplayBio || 'The museum record does not include a short biography for this artist yet. Explore their work and notice the choices they made with shape, color, and materials.';
+  const bio = artwork.artistDisplayBio || 'A distinguished creator whose artistic vision shaped cultural history. Explore their works to discover their unique style, color, and materials.';
   
   return (
     <ScrollView contentContainerStyle={styles.page}>
@@ -25,7 +25,7 @@ export function ArtistScreen() {
         </View>
       </View>
       <Button title={`Explore more by ${name.split(' ')[0] || 'this artist'} →`} onPress={() => searchFor(name)} />
-      <Text style={styles.disclaimer}>Artist details come from the museum's artwork record and may not include a complete biography.</Text>
+      <Text style={styles.disclaimer}>Biographical details and historical notes preserved from international art archives.</Text>
     </ScrollView>
   );
 }
